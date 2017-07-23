@@ -1,5 +1,5 @@
 FROM alpine
-RUN apk --update add openjdk8 wget
+RUN apk --update add openjdk8 wget bash
 RUN mkdir -p /opt/android-sdk-linux
 ADD https://dl.google.com/android/repository/tools_r25.2.3-linux.zip /opt
 RUN unzip /opt/tools_r25.2.3-linux.zip -d /opt/android-sdk-linux
