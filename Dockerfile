@@ -39,8 +39,8 @@ RUN sdkmanager "build-tools;26.0.0"
 RUN sdkmanager "extras;android;m2repository"
 
 # Install gradle
-ADD https://services.gradle.org/distributions/gradle-4.0.1-bin.zip /var/opt
-RUN unzip /opt/gradle-4.0.1-bin.zip -d /var/opt
+ADD https://services.gradle.org/distributions/gradle-4.0.1-bin.zip /opt
+RUN unzip /opt/gradle-4.0.1-bin.zip -d /opt
 RUN mv /opt/gradle-4.0.1 /opt/gradle
 ENV PATH=/opt/gradle/bin:$PATH
 
