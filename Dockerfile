@@ -44,4 +44,9 @@ RUN unzip /opt/gradle-4.0.1-bin.zip -d /opt
 RUN mv /opt/gradle-4.0.1 /opt/gradle
 ENV PATH=/opt/gradle/bin:$PATH
 
-
+# Remove download files
+RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+    rm -rf gradle-4.0.1-bin.zip && \
+    rm -rf sdk-tools-linux-3859397.zip && \
+    apt-get autoremove -7 && \
+    apt-get clean
