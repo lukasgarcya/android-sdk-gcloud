@@ -48,5 +48,5 @@ ENV PATH=/opt/gradle/bin:$PATH
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     rm -rf gradle-4.0.1-bin.zip && \
     rm -rf sdk-tools-linux-3859397.zip && \
-    apt-get autoremove -7 && \
+    apt-get autoremove -y && \
     apt-get clean
