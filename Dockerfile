@@ -50,3 +50,8 @@ RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     rm -rf sdk-tools-linux-3859397.zip && \
     apt-get autoremove -y && \
     apt-get clean
+    
+ENV CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
+RUN echo "deb https://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+RUN sudo apt-get update && sudo apt-get install google-cloud-sdk
