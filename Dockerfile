@@ -9,7 +9,7 @@ RUN apt-get -y install unzip openjdk-8-jdk lib32z1 lib32ncurses5 lib32stdc++6 gi
 RUN mkdir -p /opt/android-sdk-linux
 
 # Download and extract Android SDK Tools
-ADD https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip /var/opt
+ADD https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip /opt
 RUN unzip /opt/sdk-tools-linux-3859397.zip -d /opt/android-sdk-linux
 
 # Set ANDROID_HOME
