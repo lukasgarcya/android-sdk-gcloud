@@ -3,7 +3,7 @@ MAINTAINER Lucas Garcia de Araújo Martins <lukasgarcya@hotmail.com>
 
 # Install openjdk8 and bash to sdkmanager
 RUN apt-get update
-RUN apt-get -y install unzip openjdk-8-jdk lib32z1 lib32ncurses5 lib32stdc++6 git
+RUN apt-get -y install unzip openjdk-8-jdk lib32z1 lib32ncurses5 lib32stdc++6 git gnupg gnupg1 gnupg2
 
 # Create directory to Android SDK
 RUN mkdir -p /opt/android-sdk-linux
@@ -44,14 +44,16 @@ RUN unzip /opt/gradle-4.0.1-bin.zip -d /opt
 RUN mv /opt/gradle-4.0.1 /opt/gradle
 ENV PATH=/opt/gradle/bin:$PATH
 
+# install Google Cloud SDK
+RUN echo "deb http://packages.cloud.google.com/apt cloud-sdk-stretch main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+ADD https://packages.cloud.google.com/apt/doc/apt-key.gpg /opt
+RUN apt-key add /opt/apt-key.gpg
+RUN apt-get update && apt-get -y install google-cloud-sdk
+
 # Remove download files
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
-    rm -rf gradle-4.0.1-bin.zip && \
-    rm -rf sdk-tools-linux-3859397.zip && \
+    rm -rf /opt/gradle-4.0.1-bin.zip && \
+    rm -rf /opt/sdk-tools-linux-3859397.zip && \
+    rm -rf /opt/apt-key.gpg && \
     apt-get autoremove -y && \
     apt-get clean
-    
-ENV CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
-RUN echo "deb https://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-RUN sudo apt-get update && sudo apt-get install google-cloud-sdk
